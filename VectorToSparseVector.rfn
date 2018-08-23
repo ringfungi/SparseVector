@@ -1,0 +1,39 @@
+ /**
+ * The refinement mapping for the Vector specification module.
+ *
+ * @author antonialopes
+ * @version 1.0
+ **/
+ 
+refinement <E>
+
+  Vector[Field] is SparseVector<E>{
+ 		newVector: n:int f:Field -->? Vector[Field] is
+ 			 SparseVector(int n, E f);
+		set: Vector[Field] i:int f:Field -->? Vector[Field] is
+				void set(int i, E f);
+	    dim: Vector[Field] --> int is 
+	    		int dim();
+		get: Vector[Field] i:int  -->? Field is
+				E get(int i);
+		sumV: Vector[Field] v:Vector[Field] --> Vector[Field] is
+				sum(SparseVector<E> v);
+		scalarProd: Vector[Field] f:Field  --> Vector[Field] is
+				void scalarProd(E f);
+		dotProd: Vector[Field] v:Vector[Field] -->? Field is
+				E dotProd(SparseVector<E> v); 	
+		zero: Vector[Field] --> Field is 
+	    		E getZero();
+		density: Vector[Field] --> int is
+				int els();
+		symVector: Vector[Field] --> Vector[Field] is
+    			void sym();
+  }
+
+  Field is E {
+		sum: Field f:Field --> Field is E sum(E f);	
+		prod: Field f:Field --> Field is E prod(E f);
+		sym:  Field --> Field is E sym();
+		inv:  Field -->? Field is E inv();		
+  }
+end refinement
